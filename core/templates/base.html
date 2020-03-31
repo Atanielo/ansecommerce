@@ -26,12 +26,15 @@
               <a href="{% url 'core_index' %}">Início</a>
             </li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Categorias <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{{ get_absolute_url }}" id="download">Categorias <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="download">
-                <li><a href="{% url 'core_product_list' %}">Notebooks</a></li>
-				<li><a href="{% url 'core_product_list' %}">Acessórios</a></li>
-				<li><a href="{% url 'core_product_list' %}">Celulares</a></li>
+
+                  {% for categorias in categories %}
+                <li><a href="{{ categorias.get_absolute_url }}">{{ categorias }}</a></li>
+
+                  {% endfor %}
               </ul>
+
             </li>
 			<li>
 				<a href="{% url 'core_contact' %}">Contato</a>
@@ -55,7 +58,7 @@
 			    <ul class="list-unstyled">
 			      <li class="pull-right"><a href="#top">Voltar ao Topo</a></li>
 			      <li><a href="{% url 'core_index' %}">Início</a></li>
-			      <li><a href="{% url 'core_product' %}">Produtos</a></li>
+			      <li><a href="{% url 'catalog:core_product_list' %}">Produtos</a></li>
 			      <li><a href="{% url 'core_contact' %}">Contato</a></li>
 			      <li><a href="">Termos e Privacidade</a></li>
 			    </ul>
