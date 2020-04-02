@@ -10,7 +10,7 @@
 			<h1>Produtos</h1>
 		</div>
 		<div class="row">
-			{% for lista_produtos in Produtos %}
+			{% for lista_produtos in product_list %}
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
 					<a href="{{ lista_produtos.get_absolute_url }}">
