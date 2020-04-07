@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="pt-br">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>{{ title }}</title>
+	<title>{% block title %}Django E-Commerce{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<link rel="stylesheet" href="{% static 'assets/bootstrap.min.css' %}" media="screen" />
-	<link rel="stylesheet" href="{% static 'assets/custom.min.css' %} " media="screen" />
+	<link rel="stylesheet" href="{% static 'assets/custom.min.css' %}" media="screen" />
+	<link rel="stylesheet" href="{% static 'assets/extra.css' %}" media="screen" />
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="" class="navbar-brand">{% block title %}Django E Commerce{% endblock %}</a>
+          <a href="{% url 'core_index' %}" class="navbar-brand">Django E-Commerce</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -23,43 +24,56 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="{% url 'core_index' %}">Início</a>
+              <a href="{% url 'catalog:core_product_list' %}">Produtos</a>
             </li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="{{ get_absolute_url }}" id="download">Categorias <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'catalog:core_product_list' %}" id="download">Categorias <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="download">
-
-                  {% for categorias in categories %}
-                <li><a href="{{ categorias.get_absolute_url }}">{{ categorias }}</a></li>
-
-                  {% endfor %}
+				{% for categorias in categories %}
+				<li><a href="{{ category.get_absolute_url }}">{{ categorias }}</a></li>
+				{% endfor %}
               </ul>
-
             </li>
 			<li>
 				<a href="{% url 'core_contact' %}">Contato</a>
 			</li>
           </ul>
+		  <form class="navbar-form navbar-left" role="search" action="{% url 'catalog:core_product_list' %}">
+	        <div class="form-group">
+	          <input name="q" type="text" class="form-control" placeholder="Pesquisar..." />
+	        </div>
+	      </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Minha Conta</a></li>
+
+			{% if user.is_authenticated %}
+			<li><a href="{% url 'accounts:index' %}">Conta</a></li>
+			<li><a href="{% url 'logout' %}">Sair</a></li>
+			{% else %}
+			<li><a href="{% url 'login' %}">Entrar</a></li>
+			<li><a href="{% url 'accounts:register' %}">Registro</a></li>
+			{% endif %}
           </ul>
         </div>
       </div>
     </div>
-    <div class="container">
-
-        {% block container %}
-
-        {% endblock %}
-
+    <div class="container margin-top">
+		{% block messages %}
+		{% for message in messages %}
+		<div class="alert alert-{{ message.tags }}">
+			{{ message }}
+		</div>
+		{% endfor %}
+		{% endblock %}
+        <br><br>
+		{% block container %}{% endblock %}
 		<footer>
 			<div class="row">
 			  <div class="col-lg-12">
 			    <ul class="list-unstyled">
 			      <li class="pull-right"><a href="#top">Voltar ao Topo</a></li>
-			      <li><a href="{% url 'core_index' %}">Início</a></li>
-			      <li><a href="{% url 'catalog:core_product_list' %}">Produtos</a></li>
-			      <li><a href="{% url 'core_contact' %}">Contato</a></li>
+			      <li><a href="">Início</a></li>
+			      <li><a href="">Produtos</a></li>
+			      <li><a href="">Contato</a></li>
 			      <li><a href="">Termos e Privacidade</a></li>
 			    </ul>
 			  </div>
@@ -68,5 +82,6 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'assets/bootstrap.min.js' %}"></script>
+	{% block scripts %}{% endblock %}
 </body>
 </html>

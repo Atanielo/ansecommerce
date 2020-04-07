@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 from .models import Product, Category
+
+
 
 class Product_listView(generic.ListView):
         model = Product

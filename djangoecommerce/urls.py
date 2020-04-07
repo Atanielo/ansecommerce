@@ -17,12 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
 from core import views
-
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.static import serve as serve_static
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('', views.index, name='core_index'),
     path('contato', views.contact, name='core_contact'),
+    path('entrar/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('sair/', LogoutView.as_view(next_page='core_index'), name='logout'),
+    path('conta/', include('accounts.urls', namespace="accounts")),
     path('catalogo/', include('catalog.urls', namespace="catalog")),
     path('admin/', admin.site.urls),
 ]
