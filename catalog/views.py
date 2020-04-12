@@ -47,7 +47,7 @@ category = CategoryListView.as_view()
 def product(request, slug):
     product= Product.objects.get(slug=slug)
     context={
-        "Product": product
+        "product": product
 
     }
 
