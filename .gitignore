@@ -1,7 +1,6 @@
-
-.idéia
-
-* .sqlite3
-
-.vEnv
-* pyc
+db.sqlite3
+.idea
+*.pyc
+.DS_Store
+venv
+.env
