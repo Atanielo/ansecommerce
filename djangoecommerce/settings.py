@@ -166,3 +166,7 @@ MESSAGE_TAGS = {
     messages_constants.WARNING: 'warning',
     messages_constants.ERROR: 'danger',
 }
+
+PAGSEGURO_TOKEN = '0B20BFA0E21C4DB88E0C16FCB157A660'
+PAGSEGURO_EMAIL = 'atanielr0@gmail.com'
+PAGSEGURO_SANDBOX = True

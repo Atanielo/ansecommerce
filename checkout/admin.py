@@ -1,18 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import CartItem, CartItemManager
+from django.contrib import admin
+
+from .models import CartItem, Order, OrderItem
 
 
-
-class CartItemAdmin(admin.ModelAdmin):
-    search_fields = ('product', 'quantity','price')
-    list_display = ('product', 'quantity','price')
-
-class CategoryAdmin(admin.ModelAdmin):
-    search_fields = ('name', 'slug','created')
-    list_display = ('name', 'slug','created')
-
-
-admin.site.register(CartItem, CartItemAdmin)
-
+admin.site.register([CartItem, Order, OrderItem])
