@@ -111,6 +111,10 @@ class Order(models.Model):
             self.status = 2
         self.save()
 
+    def complete(self):
+        self.status = 1
+        self.save()
+
     def pagseguro(self):
         self.payment_option = 'pagseguro'
         self.save()
@@ -134,6 +138,31 @@ class Order(models.Model):
                 }
             )
         return pg
+
+
+
+    def paypal(self):
+        self.payment_option = 'paypal'
+        self.save()
+        paypal_dict = {
+            'upload': '1',
+            'business': settings.PAYPAL_EMAIL,
+            'invoice': self.pk,
+            'cmd': '_cart',
+            'currency_code': 'BRL',
+            'charset': 'utf-8',
+        }
+        index = 1
+        for item in self.items.all():
+            paypal_dict['amount_{}'.format(index)] = '%.2f' % item.price
+            paypal_dict['item_name_{}'.format(index)] = item.product.name
+            paypal_dict['quantity_{}'.format(index)] = item.quantity
+            index = index + 1
+        return paypal_dict
+
+
+
+
 
 class OrderItem(models.Model):
 

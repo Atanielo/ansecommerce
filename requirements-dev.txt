@@ -9,3 +9,4 @@ static3==0.7.0
 whitenoise==5.0.1
 django-widget-tweaks==1.4.8
 pagseguro==0.3.4
+django-paypal==1.0.0

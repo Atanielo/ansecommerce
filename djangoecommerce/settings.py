@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # libs
     'widget_tweaks',
+    'paypal.standard.ipn',
     #apps
     'accounts',
     'core',
@@ -170,3 +171,6 @@ MESSAGE_TAGS = {
 PAGSEGURO_TOKEN = '0B20BFA0E21C4DB88E0C16FCB157A660'
 PAGSEGURO_EMAIL = 'atanielr0@gmail.com'
 PAGSEGURO_SANDBOX = True
+
+PAYPAL_TEST = True
+PAYPAL_EMAIL = 'atanielr0@gmail.com'

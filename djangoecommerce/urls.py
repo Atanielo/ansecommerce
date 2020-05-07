@@ -30,5 +30,6 @@ urlpatterns = [
     path('conta/', include('accounts.urls', namespace="accounts")),
     path('catalogo/', include('catalog.urls', namespace="catalog")),
     path('compras/', include('checkout.urls', namespace="checkout")),
+    path('paypal/', include('paypal.standard.ipn.urls')),
     path('admin/', admin.site.urls),
 ]
