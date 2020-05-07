@@ -88,6 +88,7 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
                     order = Order.object.create_order(
                     user=request.user, cart_items=cart_items
                 )
+                cart_items.delete()
             else:
                 messages.info(request, 'Não há itens no carrinho de compras')
                 return redirect('checkout:cart_item')
@@ -179,7 +180,7 @@ def paypal_notification(sender, **kwargs):
     if ipn_obj.payment_status == ST_PP_COMPLETED and \
         ipn_obj.receiver_email == settings.PAYPAL_EMAIL:
         try:
-            order = Order.object.get(pk=ipn_obj.invoice)
+            order = Order.objects.get(pk=ipn_obj.invoice)
             order.complete()
         except Order.DoesNotExist:
             pass
